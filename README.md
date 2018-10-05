@@ -14,12 +14,12 @@ th main.lua -dataset myTrain  -learningRate 0.01 -momentum 0.9  -string dimer  -
 ==> Necessary input files before running the command:
 
         -Training data: It is in dat format. 
-        The name of this file should be the name of your training data followed by ‘_labels’ (e.g myTrain_labels.dat).
+         The name of this file should be the name of your training data followed by ‘_labels’ (e.g myTrain_labels.dat).
 
          The dat file can be build by ???. Training data contains three column where first and second columns are two proteins and third column is either 1 or 0 indicating if the two proteins interact or not. 
 
         -Validation data: Same as Training data. 
-        The name of this file should be the name of your training data followed by ‘_valid_labels’ (e.g myTrain_valid_labels.dat). 
+         The name of this file should be the name of your training data followed by ‘_valid_labels’ (e.g myTrain_valid_labels.dat). 
 
         Similar to Training data, you can make the dat file using script_convert_csv_to_dat.lua
 
