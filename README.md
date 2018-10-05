@@ -31,8 +31,8 @@ Input parameters:
 
 Necessary input files before running the command:
 You should have a 1)file and a 2)folder with names the same as the input name:
-1)The suffix of the file is ‘.node’ (e.g myFile.node). This file has a one column which contains names of all proteins in the train data. 
-2) The folder that contains profiles of proteins (e.g myFile). The name of the profiles inside this folder is the same as the protein names in ‘.node’ file 
+1)The suffix of the file is ‘.node’ (e.g myTrain.node). This file has a one column which contains names of all proteins in the train data. 
+2) The folder that contains profiles of proteins (e.g myTrain). The name of the profiles inside this folder is the same as the protein names in ‘.node’ file 
 
 Output:
 1) cropped profiles: It is in t7 format. The name of this file is the input name followed by “_number_crop_512” (e.g. myTrain_number_crop_512.t7)
