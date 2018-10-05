@@ -6,6 +6,7 @@ Command:
 th main.lua -dataset myTrain  -learningRate 0.01 -momentum 0.9  -string dimer  -device 1  -preprocess nothing -top_rand -batchSize 10
 
 Input parameters: 
+
 -dataset: nickname of the training data (e.g. myTrain)
 -string: a suffix that is added to the result file
 
