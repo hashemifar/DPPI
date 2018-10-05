@@ -35,8 +35,8 @@ You should have a 1)file and a 2)folder with names the same as the input name:
 2) The folder that contains profiles of proteins (e.g myTrain). The name of the profiles inside this folder is the same as the protein names in ‘.node’ file 
 
 Output:
-1) cropped profiles: It is in t7 format. The name of this file is the input name followed by “_number_crop_512” (e.g. myTrain_number_crop_512.t7)
-2) numbers of cropped per profile: It is in t7 format. The name of this file is the input name followed by “_profile_crop_512” (e.g. myTrain_profile_crop_512.t7) 
+1) cropped profiles: It is in t7 format. The name of this file is the input name followed by “_number_crop_512” (e.g. myTrain_profile_crop_512.t7)
+2) numbers of cropped per profile: It is in t7 format. The name of this file is the input name followed by “_number_crop_512” (e.g. myTrain_number_crop_512.t7) 
 
 Please remember you need to change the Work directory in the lua files.
 
