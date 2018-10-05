@@ -5,24 +5,25 @@ A convolutional neural network to predict PPI interactions
 Command:
 th main.lua -dataset myTrain  -learningRate 0.01 -momentum 0.9  -string dimer  -device 1  -preprocess nothing -top_rand -batchSize 10
 
-Input parameters: 
+==> Input parameters: 
 
--dataset: nickname of the training data (e.g. myTrain)
--string: a suffix that is added to the result file
+        -dataset: nickname of the training data (e.g. myTrain)
 
-Necessary input files before running the command:
+        -string: a suffix that is added to the result file
 
-Training data: It is in dat format. The name of this file should be the name of your training data followed by ‘_labels’ (e.g myTrain_labels.dat).
+==> Necessary input files before running the command:
 
-The dat file can be build by ???. Training data contains three column where first and second columns are two proteins and third column is either 1 or 0 indicating if the two proteins interact or not. 
+        -Training data: It is in dat format. The name of this file should be the name of your training data followed by ‘_labels’ (e.g myTrain_labels.dat).
 
-Validation data: Same as Training data. The name of this file should be the name of your training data followed by ‘_valid_labels’ (e.g myTrain_valid_labels.dat). 
+         The dat file can be build by ???. Training data contains three column where first and second columns are two proteins and third column is either 1 or 0 indicating if the two proteins interact or not. 
 
-Similar to Training data, you can make the dat file using script_convert_csv_to_dat.lua
+        -Validation data: Same as Training data. The name of this file should be the name of your training data followed by ‘_valid_labels’ (e.g myTrain_valid_labels.dat). 
 
-Cropped profiles of proteins: It is in t7 format. This file is made using a script called ‘create_crop.lua’.
+        Similar to Training data, you can make the dat file using script_convert_csv_to_dat.lua
 
-Numbers of cropped per profile: It is in t7 format. This file is made using a script called ‘create_crop.lua’.
+        -Cropped profiles of proteins: It is in t7 format. This file is made using a script called ‘create_crop.lua’.
+
+        -Numbers of cropped per profile: It is in t7 format. This file is made using a script called ‘create_crop.lua’.
 
 ==========================
 
