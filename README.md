@@ -3,20 +3,24 @@ A convolutional neural network to predict PPI interactions
 
 
 Command:
-th main.lua -dataset myTrain  -learningRate 0.01 -momentum 0.9  -string dimer  -device 1  -preprocess nothing -top_rand -batchSize 10
+th main.lua -dataset myTrain  -learningRate 0.01 -momentum 0.9  -string first-run  -device 1 -top_rand -batchSize 2 -saveModel
 
 ==> Input parameters: 
 
         -dataset: nickname of the training data (e.g. myTrain)
 
         -string: a suffix that is added to the result file
+        
+        -device: GPU number
+        
+              
 
 ==> Necessary input files before running the command:
 
         -Training data: It is in dat format. 
          The name of this file should be the name of your training data followed by ‘_labels’ (e.g myTrain_labels.dat).
 
-         The dat file can be build by ???. Training data contains three column where first and second columns are two proteins and third column is either 1 or 0 indicating if the two proteins interact or not. 
+         The dat file is made using a script called 'convert_csv_to_dat.lua' . 
 
         -Validation data: Same as Training data. 
          The name of this file should be the name of your training data followed by ‘_valid_labels’ (e.g myTrain_valid_labels.dat). 
@@ -28,8 +32,24 @@ th main.lua -dataset myTrain  -learningRate 0.01 -momentum 0.9  -string dimer  -
         -Numbers of cropped per profile: It is in t7 format. This file is made using a script called ‘create_crop.lua’.
 
 ==========================
+convert_csv_to_dat.lua
 
-Creat_crop.lua
+Command:
+th convert_csv_to_dat.lua -dataset myTrain
+
+==> Input parameters: 
+
+        -dataset: name of the training data without (e.g. myTrain)
+
+==> Necessary input files before running the command:
+
+        -training data: It is in csv format. This file contains three column where first and second columns are two proteins
+        
+        and third column is either 1 or 0 indicating if the two proteins interact or not (e.g. myTrain.csv and myTrain_valid.csv).  
+
+==========================
+
+creat_crop.lua
 
 Command:
 th creat_crop.lua -dataset myTrain  
