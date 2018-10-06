@@ -1,5 +1,5 @@
 # DPPI
-A convolutional neural network to predict PPI interactions
+A convolutional neural network to predict PPI interactions.
 
 
 Command:
