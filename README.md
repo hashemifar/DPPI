@@ -30,13 +30,14 @@ th main.lua -dataset myTrain  -learningRate 0.01 -momentum 0.9  -string first-ru
 
         -Numbers of cropped per profile: It is in t7 format. This file is made using a script called ‘create_crop.lua’.
 
-==========================
+====================================================
 
 convert_csv_to_dat.lua: This script converts a csv file to dat file.
 
 Command:
 
 th convert_csv_to_dat.lua -dataset myTrain
+th convert_csv_to_dat.lua -dataset myTrain_valid
 
 ==> Input parameters: 
 
@@ -48,9 +49,9 @@ th convert_csv_to_dat.lua -dataset myTrain
         
 ==> Output:
 
-        dataset in dat format (e.g. myTrain_labels.dat) 
+        dataset in dat format (e.g. myTrain_labels.dat or myTrain_valid_labels.dat) 
 
-==========================
+====================================================
 
 creat_crop.lua: This scripts makes the cropped profiles
 
@@ -79,6 +80,7 @@ th creat_crop.lua -dataset myTrain
         
         The name of the profiles inside this folder is the same as the protein names in ‘.node’ file 
 
+====================================================
 
 Please remember befor running the main command you need to change the data directory and work directory 
 
