@@ -32,20 +32,30 @@ th main.lua -dataset myTrain  -learningRate 0.01 -momentum 0.9  -string first-ru
         -Numbers of cropped per profile: It is in t7 format. This file is made using a script called ‘create_crop.lua’.
 
 ==========================
-convert_csv_to_dat.lua
+
+convert_csv_to_dat.lua: This script converts a csv file to dat file.
 
 Command:
+
 th convert_csv_to_dat.lua -dataset myTrain
 
 ==> Input parameters: 
 
-        -dataset: name of the training data without (e.g. myTrain)
+        -dataset: name of the dataset in csv format without suffix (e.g. myTrain).
+        
+        This file contains three column where first and second columns are two proteins and third column is either 1 or 0
+        
+        indicating if the two proteins interact or not (e.g. myTrain.csv and myTrain_valid.csv). 
+        
+==> Output:
+
+        dataset in dat format (e.g. myTrain_labels.dat) 
 
 ==> Necessary input files before running the command:
 
-        -training data: It is in csv format. This file contains three column where first and second columns are two proteins
+        -dataset: It is in csv format.  
         
-        and third column is either 1 or 0 indicating if the two proteins interact or not (e.g. myTrain.csv and myTrain_valid.csv).  
+
 
 ==========================
 
