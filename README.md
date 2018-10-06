@@ -2,7 +2,7 @@
 A convolutional neural network to predict PPI interactions.
 
 
-Command:
+Main Command:
 th main.lua -dataset myTrain  -learningRate 0.01 -momentum 0.9  -string first-run  -device 1 -top_rand -batchSize 2 -saveModel
 
 ==> Input parameters: 
@@ -82,7 +82,7 @@ th creat_crop.lua -dataset myTrain
 
 ====================================================
 
-Please remember befor running the main command you need to change the data directory and work directory 
+Please remember befor running the Main Command you need to change the data directory and work directory 
 
 in main.lua file at lines 5 and 6. You need to replace '$HOME' with your own data directory and work directory. 
 
