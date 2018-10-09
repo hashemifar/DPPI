@@ -1,6 +1,6 @@
 require 'torch'   -- torch
 require 'cutorch'
---require 'mattorch'
+
 ----------------------------------------------------------------------
 cmd = torch.CmdLine()
 cmd:text()
@@ -8,8 +8,11 @@ cmd:text('Options:')
 -- global:
 cmd:option('-dataset', 'A', 'suffix to log files')
 
+opt = cmd:parse(arg or {})
+
 crop_size = 512;
 NumFeatures = 20
+local C = 0.8
 
 function file_exists(name)
    local f=io.open(name,"r")
@@ -40,25 +43,17 @@ background[17]=0.0580394726014824; --T
 background[18]=0.0144991866213453; --W
 background[19]=0.03635438623143; --Y
 background[20]=0.0700241481678408; --V
-local C = 0.8
 
-local proteinFile = Csv("/home/hashemifar/ppi_predict/data/"..opt.dataset..".node","r")
+local proteinFile = Csv(opt.dataset..".node","r")
 local proteinString = proteinFile:readall()
 
-print 'number of proteins '
-print (#proteinString)
 ppFeature = {}
 pNumber = {}
 
 
 for i=1, #proteinString do
-
-  --print(i)
-  if i%1000 == 0 then
-    print(i)
-  end
   
-  local fileName = '/home/hashemifar/ppi_predict/data/'..opt.dataset..'/'..proteinString[i][1]
+  local fileName = opt.dataset..'/'..proteinString[i][1]
 
   if file_exists( fileName ) then
 
@@ -90,7 +85,6 @@ for i=1, #proteinString do
       else
         
         for j=1,#profile do
-          --print(proteinString[i][1])
           for k=1,20 do
             ppFeature[ proteinString[i][1]..'-sub'..c ][1][k][j-math.floor(start/2)] = math.log(C*( tonumber(profile[j][k+20]) / 100 )+(1-C)*background[k])
           end
@@ -106,5 +100,5 @@ end
 
 proteinFile:close()
 collectgarbage()
-torch.save('/home/hashemifar/ppi_predict/data/'..opt.dataset..'_profile_crop_'..crop_size..'.t7', ppFeature )
-torch.save('/home/hashemifar/ppi_predict/data/'..opt.dataset..'_number_crop_'..crop_size..'.t7', pNumber )
+torch.save(opt.dataset..'_profile_crop_'..crop_size..'.t7', ppFeature )
+torch.save(opt.dataset..'_number_crop_'..crop_size..'.t7', pNumber )

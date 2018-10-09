@@ -24,14 +24,6 @@ else
    error('unknown optimization method')
 end
 
-
--- refernce to parameters and their gradients
---parameters,gradParameters = model:getParameters()
-
-
---netParam,netGrad = model.modules[1]:getParameters()
-
-
 function train()
 
   parameters,gradParameters = model:getParameters()
@@ -54,7 +46,6 @@ function train()
 
   for t = 1, num_batch*opt.batchSize, opt.batchSize do
 
-    --print(collectgarbage('count'))
     xlua.progress(t, num_batch*opt.batchSize )
     
     load_batch( trainData, shuffle[{{t,t+opt.batchSize-1}}] )
@@ -83,21 +74,16 @@ function train()
       df_do:cmul(weights)
       model:backward(inputs, df_do)
 
-            
-      if opt.top_rand then  --it keeps RP values unchanged
-      --  if false then  --it changes values of RP
-        if opt.model == 'myconv_wtop2' then
-          model.modules[2].modules[1].modules[1].modules[1].modules[1].gradWeight:zero()
-          model.modules[2].modules[1].modules[1].modules[1].modules[1].gradBias:zero()
-          model.modules[2].modules[1].modules[1].modules[2].modules[1].gradWeight:zero()
-          model.modules[2].modules[1].modules[1].modules[2].modules[1].gradBias:zero()
+      --Values of RP are fixed
+      model.modules[2].modules[1].modules[1].modules[1].modules[1].gradWeight:zero()
+      model.modules[2].modules[1].modules[1].modules[1].modules[1].gradBias:zero()
+      model.modules[2].modules[1].modules[1].modules[2].modules[1].gradWeight:zero()
+      model.modules[2].modules[1].modules[1].modules[2].modules[1].gradBias:zero()
           
-          model.modules[2].modules[2].modules[1].modules[1].modules[1].gradWeight:zero()
-          model.modules[2].modules[2].modules[1].modules[1].modules[1].gradBias:zero()
-          model.modules[2].modules[2].modules[1].modules[2].modules[1].gradWeight:zero()
-          model.modules[2].modules[2].modules[1].modules[2].modules[1].gradBias:zero()
-        end
-      end
+      model.modules[2].modules[2].modules[1].modules[1].modules[1].gradWeight:zero()
+      model.modules[2].modules[2].modules[1].modules[1].modules[1].gradBias:zero()
+      model.modules[2].modules[2].modules[1].modules[2].modules[1].gradWeight:zero()
+      model.modules[2].modules[2].modules[1].modules[2].modules[1].gradBias:zero()
 
       return f,gradParameters
     

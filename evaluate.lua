@@ -12,7 +12,7 @@ function evaluateAll( epoch )
   prlog[epoch] = {}
   prlog[epoch][1] = {}
   prRank = false
-  mylog[epoch][1], mylog[epoch][2],prlog[epoch][1][1],prlog[epoch][1][2], prlog[epoch][1][3] = evaluate( trainData ) --added by somaye
+  mylog[epoch][1], mylog[epoch][2],prlog[epoch][1][1],prlog[epoch][1][2], prlog[epoch][1][3] = evaluate( trainData )
   print(' Training MAP and Objective ('..trainData.size..') : '.. mylog[epoch][2] )
 
   local tmp_obj = 0 
@@ -25,15 +25,12 @@ function evaluateAll( epoch )
     else
 	prRank = true
     end
-    tmp_obj, mylog[epoch][2+i],prlog[epoch][1+i][1],prlog[epoch][1+i][2], prlog[epoch][1+i][3] = evaluate( valData[i] ) --added by somaye
+    tmp_obj, mylog[epoch][2+i],prlog[epoch][1+i][1],prlog[epoch][1+i][2], prlog[epoch][1+i][3] = evaluate( valData[i] )
     print(' Validation MAP ('..valNames[i]..' - '..valData[i].size..') : '.. mylog[epoch][2+i] )
     
   end
 
 end
-
-
-
 
 -- evaluate the model on the given data
 function evaluate( Data )
@@ -60,8 +57,6 @@ function evaluate( Data )
 
     local output = model:forward( inputs )
 
-
-    --print(model.modules[3].output:size()) 
     for k=1,output:size(1) do
    
       val_score[counter*opt.batchSize+k][1] = output[k][1]
@@ -77,14 +72,14 @@ function evaluate( Data )
     val_score, val_labels = recalculate_crop( val_score, val_labels, Data )
   end
 
-  local val_map, precision, recall, specificity  = MAP( val_score, val_labels ) --added by somaye
+  local val_map, precision, recall, specificity  = MAP( val_score, val_labels )
 
   parameters,gradParameters = nil, nil
 
   collectgarbage()
   collectgarbage()
 
-  return val_obj, val_map, precision, recall, specificity --added by somaye
+  return val_obj, val_map, precision, recall, specificity
 
 end
 
@@ -102,24 +97,16 @@ function recalculate_crop( v_score, v_labels, Data )
       for k=1, Data.pNum[ Data.org_data[i][2] ] do
         new_labels[i][1] = Data.org_data[i][3]
         if counter <= v_score:size(1) then
-          --if v_labels[ counter ][1] ~= new_labels[i][1] then
-          --  error( 'different labels!')
-          --end
           myscore1 =  math.max( myscore1, v_score[counter][1] )
           myscore2 = myscore2 + v_score[counter][1]
           counter = counter + 1
         end
       end
     end
-    --if prRank and new_labels[i][1] == 1 then
-    --	print('gholi')
-    --end
     new_score[i][1] = myscore1
   end
   
   return new_score, new_labels
-
-
 end
 
 
@@ -129,7 +116,7 @@ function MAP (score, truth)
   local x,ind,map,P,TP,FP,N
   x, ind = torch.sort(score, 1, true)
 
-  if opt.loss ~= 'nll' and num_outputs == 1 then
+  if num_outputs == 1 then
     truth:add(1):div(2)
   end
   
@@ -145,31 +132,14 @@ function MAP (score, truth)
     FP = 0
     FN = 0
 
-    N = score:size(1) - P[1][c] --added by somaye   N=TN+FP
-    --print('ha:'..N..P[1][c]..score:size(1))
-    for i=1, score:size(1) do
-      --print(score[i][1])
-      --if score[i][1] > 0.5 then
-	--my_error = my_error + 1
-      --end
-      --added later
-      --if prRank then
-      --  if truth[ind[i][c]][c] == 1 then
-      --     print(i)
-	  --print('ind[i][c]: '..ind[i][c])
-	  --print('c: '..c)
-	  --print '------------------'
-      --  end
-      --end    
-  
-      
+    N = score:size(1) - P[1][c] 
+    for i=1, score:size(1) do  
       TP = TP + truth[ind[i][c]][c]
       FP = FP + (1 - truth[ind[i][c]][c] )      
-      --FN = FN + P[1][c] - TP
 
       precision[i][1] = TP / (FP + TP)
-      recall[i][1] = TP / P[1][c] -- P[1][c] = TP + FN
-      specificity[i][1] = FP / N  --added by the somaye
+      recall[i][1] = TP / P[1][c] 
+      specificity[i][1] = FP / N  
       
       map = map + ( truth[ind[i][c]][c] * TP / ( P[1][c] * ( FP + TP ) ) )
     end
@@ -180,7 +150,7 @@ function MAP (score, truth)
 
   map = map / ( score:size(2) ) 
 
-  return map, precision, recall, specificity --added by somaye
+  return map, precision, recall, specificity
 
 end
 

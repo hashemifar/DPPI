@@ -51,7 +51,6 @@ function pair_seq_load_batch( Data, index )
       firstInd = 2
       secondInd = 1
     end
-    --print(Data.data[ index[i] ])
     inputs[1][i] = feature[ Data.data[ index[i] ][ firstInd ] ]
     inputs[2][i] = feature[ Data.data[ index[i] ][ secondInd ] ]
    
@@ -62,7 +61,7 @@ function pair_seq_load_batch( Data, index )
       print( Data.data[ index[i] ][ secondInd ] )
     end
       
-    if opt.loss ~= 'nll' and num_outputs == 1 then
+    if num_outputs == 1 then
       targets[i] = 2 * Data.data[ index[i] ][ 3 ] - 1
     else
       targets[i] = Data.data[ index[i] ][ 3 ]
@@ -84,14 +83,14 @@ valData = {}
 -- loading the dataset
 if opt.dataset then 
   if opt.crop then
-    pNumber = torch.load( dataDir..'/ppi_predict/data/'..opt.dataset..'_number_crop_'..opt.cropLength..'.t7' )
-    trainData = pair_crop_load( dataDir..'/ppi_predict/data/'..opt.dataset..'_labels.dat',10, pNumber )
+    pNumber = torch.load( dataDir..opt.dataset..'_number_crop_'..opt.cropLength..'.t7' )
+    trainData = pair_crop_load( dataDir..opt.dataset..'_labels.dat',10, pNumber )
 
     valNames[1] = 'validation'
-    valData[1] = pair_crop_load( dataDir..'/ppi_predict/data/'..opt.dataset..'_valid_labels.dat',10, pNumber )
+    valData[1] = pair_crop_load( dataDir..opt.dataset..'_valid_labels.dat',10, pNumber )
     print(valData[1].size)
 
-    feature = torch.load( dataDir..'/ppi_predict/data/'..opt.dataset..'_profile_crop_'..opt.cropLength..'.t7' )
+    feature = torch.load( dataDir..opt.dataset..'_profile_crop_'..opt.cropLength..'.t7' )
     num_features = feature[ trainData.data[1][1] ]:size(2)
     num_outputs = 1
 

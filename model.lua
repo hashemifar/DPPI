@@ -65,11 +65,9 @@ print '==> creating the model' -- creating the model
     model:add( nn.CMulTable() )
     model:add( nn.View( 1024 ) )
     model:add( nn.Linear( 1024, 1 )) 
-    --model:add( nn.ConcatTable():add( lin1 ):add( lin2 ) )
-    --model:add( nn.CAddTable() )
     model:add( nn.View(1) )    
 
-if opt.loss == 'nll' and num_outputs == 1 then
+if num_outputs == 1 then
     model:add( nn.Sigmoid() )
 end
 
@@ -101,8 +99,6 @@ end
 ConvInit('cudnn.SpatialConvolution')
 ConvInit('nn.SpatialConvolution')
 BNInit('fbnn.SpatialBatchNormalization')
---BNInit('cudnn.SpatialBatchNormalization')
---BNInit('nn.SpatialBatchNormalization')
 for k,v in pairs(model:findModules('nn.Linear')) do
    v.bias:zero()
 end
@@ -110,14 +106,7 @@ end
 ----------------------------------------------------------------------------
 -- loss function
 ----------------------------------------------------------------------------
-if opt.loss == 'hinge' then
-  criterion = nn.MarginCriterion()
-  --w_criterion = nn.MarginCriterion()
-elseif opt.loss == 'nll' then
-  criterion = nn.BCECriterion()
-else
-  criterion = nn.SoftMarginCriterion()
-end
+ criterion = nn.BCECriterion()
 
 ----------------------------------------------------------------------------
 -- switch to Cuda
