@@ -2,8 +2,8 @@ require 'torch'
 require 'cutorch'
 require 'paths'
 ----------------------------------------------------------------------
-workDir = '/home/hashemifar/ppi_predict/final'
-dataDir = '/home/hashemifar/ppi_predict/final/'
+workDir = '$Home/DPPI' --please change $Home to your own home directory (i.e. path to DPPI folder)
+dataDir = '$Home/DPPI/' --please change $Home to your own home directory (i.e. path to DPPI folder)
 
 print '==> Options'
 
