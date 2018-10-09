@@ -7,9 +7,9 @@ th main.lua -dataset myTrain  -learningRate 0.01 -momentum 0.9  -string first-ru
 
 ==> Input parameters: 
 
-        -dataset: nickname of the training data (e.g. myTrain)
+        -dataset: Name of the training data (e.g. myTrain)
 
-        -string: a suffix that is added to the result file
+        -string: A suffix that is added to the result file
         
         -device: GPU number
         
